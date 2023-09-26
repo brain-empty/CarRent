@@ -1,5 +1,5 @@
-var car = artifacts.require("./car.sol")
+var carRent = artifacts.require("./carRent.sol")
 
 module.exports = function(deployer) {
-    deployer.deploy(car);
+    deployer.deploy(carRent);
 }
