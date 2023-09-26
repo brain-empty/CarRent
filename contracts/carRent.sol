@@ -6,6 +6,7 @@ contract carRent {
     struct Car {
         uint id;
         string name;
+        uint driven;
         bool rented;
     }
 
@@ -14,6 +15,7 @@ contract carRent {
     event CarCreated (
         uint id,
         string name,
+        uint driven,
         bool rented
     );
 
@@ -23,16 +25,16 @@ contract carRent {
     );
 
     constructor () public {
-        createCar("Toyota MR3");
+        createCar("Toyota MR3", 230);
     }
 
-    function createCar(string memory _content) public {
+    function createCar(string memory _content, uint _driven) public {
         carCount ++;
-        cars[carCount] = Car(carCount, _content, false);
-        emit CarCreated(carCount, _content, false);
+        cars[carCount] = Car(carCount, _content, _driven, false);
+        emit CarCreated(carCount, _content, _driven, false);
     }
 
-    function toggleRented (uint _id) public {
+    function toggleRented (uint _id, uint amount) public payable {
         Car memory _car = cars[_id];
         _car.rented =!_car.rented;
         cars[_id] = _car;

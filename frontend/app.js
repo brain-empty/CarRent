@@ -45,7 +45,6 @@ App = {
     loadAccount: async () => {
       // Set the current blockchain account
       App.account = web3.eth.accounts[0]
-      console.log(App.account)
     },
   
     loadContract: async () => {
@@ -90,11 +89,13 @@ App = {
         console.log(car)
         const carId = car[0].toNumber()
         const carContent = car[1]
-        const carRented = car[2]
+        const carRented = car[3]  
+        const driven = car[2]
+        console.log(carRented)
   
         // Create the html for the car
         const $newCarTemplate = $carTemplate.clone()
-        $newCarTemplate.find('.content').html(carContent)
+        $newCarTemplate.find('.content').html(carContent + "<br>" + "Kilometres driven: " + driven)
         $newCarTemplate.find('input')
                         .prop('name', carId)
                         .prop('checked', carRented)
@@ -115,15 +116,15 @@ App = {
     createCar: async () => {
       App.setLoading(true)
       const content = $('#newCar').val()
-      console.log(content)
-      await App.carRent.createCar(content)
+      const contentDriven = $('#newDriven').val()
+      await App.carRent.createCar(content, contentDriven)
       window.location.reload()
     },
   
     toggleRented: async (e) => {
       App.setLoading(true)
       const carId = e.target.name
-      await App.carRent.toggleRented(carId)
+      await App.carRent.toggleRented(carId, 15)
       window.location.reload()
     },
   

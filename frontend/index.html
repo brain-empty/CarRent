@@ -40,9 +40,56 @@
         margin-bottom: 0px;
       }
 
-      #completedTaskList .content {
-        color: grey;
-        text-decoration: line-through;
+      input[type="checkbox"]{
+        -webkit-appearance: initial;
+        appearance: initial;
+        width: 80px;
+        height: 40px;
+        border: 1px;
+        position: relative;
+        background: green
+      }
+
+      input[type="checkbox"]:after{
+          color: #fff;
+          /* The following positions my tick in the center, 
+          * but you could just overlay the entire box
+          * with a full after element with a background if you want to */
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          content: "Rent";
+          -webkit-transform: translate(-50%,-50%);
+          -moz-transform: translate(-50%,-50%);
+          -ms-transform: translate(-50%,-50%);
+          transform: translate(-50%,-50%);
+      }
+
+      input[type="checkbox"]:checked {
+              background: grey;
+          }
+
+      input[type="checkbox"]:checked:after {
+          content: "Rented";
+          color: #fff;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          -webkit-transform: translate(-50%,-50%);
+          -moz-transform: translate(-50%,-50%);
+          -ms-transform: translate(-50%,-50%);
+          transform: translate(-50%,-50%);
+        }
+        
+      .grid-container {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        padding: 10px;
+        column-gap: 40%;
+      }
+      .grid-child{
+        width:400px;
+        height:auto;
       }
     </style>
   </head>
@@ -62,16 +109,22 @@
             <p class="text-center">Loading...</p>
           </div>
           <div id="content">
-            <form onSubmit="App.createCar(); return false;">
-              <input id="newCar" type="text" class="form-control" placeholder="Add car..." required>
-              <input type="submit" hidden="">
+            
+            <h2>Add car</h2>
+            <form class=" col-lg-12 d-flex justify-content-center" onSubmit="App.createCar(); return false;">
+              <input style="margin:20px" id="newCar" type="text" class="form-control" placeholder="Car name?" required>
+              <input style="margin:20px" id="newDriven" type="number" class="form-control" placeholder="How many kilometres driven?"" required>
+              <input class="btn btn-light" type="submit">
             </form>
+            <h2>List of cars</h2>
             <ul id="carList" class="list-unstyled">
               <div class="carTemplate" class="checkbox" style="display: none">
-                <label>
-                  <input type="checkbox" />
-                  <span class="content">car details</span>
-                </label>
+                <div class="grid-container">
+                  <span class="content grid-child">Car details</span>
+                  <span class="grid-child">
+                    <input class="grid-child" type="checkbox" />
+                  </span>
+                </div>
               </div>
             </ul>
             <ul id="completedCarList" class="list-unstyled">
